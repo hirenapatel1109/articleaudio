@@ -1,3 +1,4 @@
+from newUrl import *
 import BaseHTTPServer
 
 # Inspired by: http://aosabook.org/en/500L/a-simple-web-server.html
@@ -15,9 +16,10 @@ class RequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
         requestedArticle = self.path[6:]
         # TODO import someone elses work for this, and give this correct
         # function name
-        outputLink = findAudioFile(requestedArticle)
-        if (outputLink != "File Not Found"):
-            outputLink = generateAndSaveAudio(requestedArticle)
+        #outputLink = findAudioFile(requestedArticle)
+        #if (outputLink != "File Not Found"):
+            #outputLink = generateAndSaveAudio(requestedArticle)
+        outputLink = generateAndSaveAudio(requestedArticle)
         self.send_header("Content-Length", str(len(outputLink)))
         self.end_headers()
         self.wfile.write(outputLink)
