@@ -1,0 +1,6 @@
+<h1>{{ audio.name }}</h1>
+<ul>
+{% for a in audio.audio_set.all %}
+    <li>{{ audio.url }}</li>
+{% endfor %}
+</ul>

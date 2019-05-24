@@ -1,17 +1,22 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponse
+from django.template import loader
 from .models import Audio
+from django.http import Http404
+
+
 # Create your views here.
 
 
 def index(request):
-    latest_question_list = Audio.objects.order_by('-name')[:5]
-    output = ', '.join([a.name for a in latest_question_list])
-    return HttpResponse(output)
+    latest_audio_list = Audio.objects.order_by('-name')[:5]
+    context = {'latest_audio_list': latest_audio_list}
+    return render(request, 'articleaudiodb/index.html', context)
 
 
 def detail(request, audio_id):
-    return HttpResponse("You're looking at audio %s." % audio_id)
+    audio = get_object_or_404(Audio, pk=audio_id)
+    return render(request, 'articleaudiodb/detail.html', {'audio': audio})
 
 
 def file(request, audio_id):

@@ -1,0 +1,9 @@
+{% if latest_audio_list %}
+<ul>
+    {% for a in latest_audio_list %}
+    <li><a href="/articleaudiodb/{{ audio.id }}/">{{ a.name }}</a></li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>No polls are available.</p>
+{% endif %}
