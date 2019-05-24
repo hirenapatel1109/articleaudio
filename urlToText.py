@@ -2,6 +2,7 @@ import urllib2
 
 def urlToHtmlDoc(url):
     response = urllib2.urlopen(url)
+    # TODO how do we handle a 403 response?
     return response.read()
 
 def htmlDocToArticleText(rawHtml):
