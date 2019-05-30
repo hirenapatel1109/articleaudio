@@ -1,6 +1,10 @@
 <h1>{{ audio.name }}</h1>
-<ul>
-{% for a in audio.audio_set.all %}
-    <li>{{ audio.url }}</li>
-{% endfor %}
-</ul>
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<form enctype="multipart/form-data" method="post">
+    {% csrf_token %}
+    <input type="file" name="audio" value="{{ audio.id }}">
+    <label>{{ audio.audio_info }}</label><br>
+    <input type="submit" value="Upload">
+</form>

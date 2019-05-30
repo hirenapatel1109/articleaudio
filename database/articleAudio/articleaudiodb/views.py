@@ -1,8 +1,7 @@
 from django.shortcuts import get_object_or_404, render
-from django.http import HttpResponse
-from django.template import loader
-from .models import Audio
-from django.http import Http404
+from django.http import HttpResponse, HttpResponseRedirect
+from .models import Audio, Document
+from .forms import DocumentForm
 
 
 # Create your views here.
@@ -22,3 +21,18 @@ def detail(request, audio_id):
 def file(request, audio_id):
     response = "You're looking at the file of audio %s."
     return HttpResponse(response % audio_id)
+
+
+def upload_file(request, audio_id):
+    if request.method == 'POST':
+        form = DocumentForm(request.POST, request.FILES)
+        if form.is_valid():
+            newdoc = Document(docfile=request.FILES['docfile'])
+            newdoc.save()
+            a = Audio.objects.get(pk=audio_id)
+            a.audio_info = form.document
+            a.save()
+            return HttpResponseRedirect('/success/url/')
+    else:
+        form = DocumentForm()
+    return render(request, 'articleaudiodb/detail.html', {'form': form})
