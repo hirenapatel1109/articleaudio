@@ -1,5 +1,3 @@
-hi
-
 Run the server by cloning this repository and running server.py. On unix systems, one can do this in the terminal, from within this repository's directory, via:
 
     python server.py
